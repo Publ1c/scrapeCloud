@@ -5,7 +5,6 @@ import wordcloud
 import numpy as np
 from matplotlib import pyplot as plt
 
-
 def scrape_words(text_source):
     page = urlopen(text_source)
     html = page.read().decode("utf-8")
@@ -14,7 +13,6 @@ def scrape_words(text_source):
 
 def calculate_frequencies(text_contents):
     # Here is a list of punctuations and uninteresting words you can use to process your text
-    punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
     uninteresting_words = ["the", "a", "to", "if", "is", "it", "of", "and", "or", "an", "as", "i", "me", "my", "would", "should", "about", "replied", \
     "we", "our", "ours", "you", "your", "yours", "he", "she", "him", "his", "her", "hers", "its", "they", "them", "like", "also", "said", "let", "say", \
     "their", "what", "which", "who", "whom", "this", "that", "am", "are", "was", "were", "be", "been", "being", "not", "these", "whether", "take", "yet", \
