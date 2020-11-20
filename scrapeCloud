@@ -1,0 +1,70 @@
+import sys
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+import wordcloud
+import numpy as np
+from matplotlib import pyplot as plt
+
+
+def scrape_words(text_source):
+    page = urlopen(text_source)
+    html = page.read().decode("utf-8")
+    soup = BeautifulSoup(html, "html.parser")
+    return soup.get_text()
+
+def calculate_frequencies(text_contents):
+    # Here is a list of punctuations and uninteresting words you can use to process your text
+    punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+    uninteresting_words = ["the", "a", "to", "if", "is", "it", "of", "and", "or", "an", "as", "i", "me", "my", "would", "should", "about", "replied", \
+    "we", "our", "ours", "you", "your", "yours", "he", "she", "him", "his", "her", "hers", "its", "they", "them", "like", "also", "said", "let", "say", \
+    "their", "what", "which", "who", "whom", "this", "that", "am", "are", "was", "were", "be", "been", "being", "not", "these", "whether", "take", "yet", \
+    "part", "upon", "mean", "because", "two", "same", "after", "every", "most", "cannot", "nothing", "either", "again", "having", "those", "therefore", \
+    "have", "has", "had", "do", "does", "did", "but", "at", "by", "with", "from", "here", "when", "where", "how", "for", "yes", "cp", "ib", "into", "still", \
+    "without", "another", "second", "never", "always", "things", "much", "far", "rather", "place", "certainly", "three", "men", "made", "against", \
+    "all", "any", "both", "each", "few", "more", "some", "such", "no", "nor", "too", "very", "can", "will", "just","than","may","there","then","now","only"]
+    
+    # LEARNER CODE START HERE
+    uninteresting_str = " ".join(uninteresting_words)
+    words_only = []
+    interesting_only = []
+    word_freq = {}
+    
+    for word in text_contents.split():
+        word_only = ""
+        for letter in word:
+            if letter.isalpha():
+                word_only += letter
+        words_only.append(word_only.lower())
+    
+    for word in words_only:
+        if word not in uninteresting_str:
+            interesting_only.append(word)
+    
+    for word in interesting_only:
+        freq = 0
+        if word in word_freq:
+            freq = word_freq[word]
+            freq += 1
+            word_freq[word] = freq
+        else:
+            word_freq[word] = 0
+    
+    
+    
+    
+    
+    #wordcloud
+    cloud = wordcloud.WordCloud()
+    cloud.generate_from_frequencies(word_freq)
+    return cloud.to_array()
+
+
+text_source = sys.argv[1]
+text_contents = scrape_words(text_source)
+print(text_contents)
+#calculate_frequencies(text_contents)
+
+myimage = calculate_frequencies(text_contents)
+plt.imshow(myimage, interpolation = 'nearest')
+plt.axis('off')
+plt.show()
