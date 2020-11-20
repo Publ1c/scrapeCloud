@@ -12,7 +12,7 @@ def scrape_words(text_source):
     return soup.get_text()
 
 def calculate_frequencies(text_contents):
-    # Here is a list of punctuations and uninteresting words you can use to process your text
+    # Uninteresting words you can use to process your text
     uninteresting_words = ["the", "a", "to", "if", "is", "it", "of", "and", "or", "an", "as", "i", "me", "my", "would", "should", "about", "replied", \
     "we", "our", "ours", "you", "your", "yours", "he", "she", "him", "his", "her", "hers", "its", "they", "them", "like", "also", "said", "let", "say", \
     "their", "what", "which", "who", "whom", "this", "that", "am", "are", "was", "were", "be", "been", "being", "not", "these", "whether", "take", "yet", \
@@ -21,7 +21,7 @@ def calculate_frequencies(text_contents):
     "without", "another", "second", "never", "always", "things", "much", "far", "rather", "place", "certainly", "three", "men", "made", "against", \
     "all", "any", "both", "each", "few", "more", "some", "such", "no", "nor", "too", "very", "can", "will", "just","than","may","there","then","now","only"]
     
-    # LEARNER CODE START HERE
+    # Init defintions of lists and dictionary
     uninteresting_str = " ".join(uninteresting_words)
     words_only = []
     interesting_only = []
@@ -59,8 +59,8 @@ def calculate_frequencies(text_contents):
 
 text_source = sys.argv[1]
 text_contents = scrape_words(text_source)
-print(text_contents)
-#calculate_frequencies(text_contents)
+#print(text_contents)
+
 
 myimage = calculate_frequencies(text_contents)
 plt.imshow(myimage, interpolation = 'nearest')
